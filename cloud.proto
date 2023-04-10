@@ -2,8 +2,7 @@ syntax = "proto3";
 
 option csharp_namespace = "CommonModule.Protos";
 import "google/protobuf/timestamp.proto";
-import "edge.proto";
-package message;
+package cloud;
 
 service CloudBroker {
 	//unary
@@ -13,9 +12,16 @@ service CloudBroker {
 }
 
 message EquipmentEnrichedMessage {
-  EquipmentMessage baseMessage=1;
-  string factoryId=2;
-  string dutymanager=3;
+	//base fields
+  string deviceId=1;
+  string status=2;
+  google.protobuf.Timestamp timestamp=3;
+  string temperature=4;
+  string energyConsumption=5;
+  string payload=6;
+  //enriched fields
+  string factoryId=7;
+  string dutymanager=8;
 }
 
 message CloudResponse {

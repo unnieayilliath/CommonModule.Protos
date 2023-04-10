@@ -3,7 +3,7 @@ syntax = "proto3";
 option csharp_namespace = "CommonModule.Protos";
 import "google/protobuf/timestamp.proto";
 
-package message;
+package edge;
 
 service EdgeGateway {
 	//unary
