@@ -16,12 +16,14 @@ message EquipmentEnrichedMessage {
   string deviceId=1;
   string status=2;
   google.protobuf.Timestamp timestamp=3;
-  string temperature=4;
-  string energyConsumption=5;
+  float temperature=4;
+  float energyConsumption=5;
   string payload=6;
   //enriched fields
   string factoryId=7;
   string dutymanager=8;
+  float roomTemperature=9;
+  float roomHumidity=10;
 }
 
 message CloudResponse {

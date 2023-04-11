@@ -6,21 +6,33 @@ import "google/protobuf/timestamp.proto";
 package edge;
 
 service EdgeGateway {
-	//unary
-  rpc Send (EquipmentMessage) returns (EdgeResponse);
-  // Client streaming
-  rpc SendStream (stream EquipmentMessage) returns (EdgeResponse);
+	//unary endpoint for equipment client
+  rpc SendEquipment (EquipmentMessage) returns (EdgeResponse);
+  // Equipment client streaming
+  rpc SendEquipmentStream (stream EquipmentMessage) returns (EdgeResponse);
+
+  //unary endpoint for facility client
+  rpc SendFacility (FacilityMessage) returns (EdgeResponse);
+  // Facility client streaming
+  rpc SendFacilityStream (stream FacilityMessage) returns (EdgeResponse);
 }
 
 message EquipmentMessage {
   string deviceId=1;
   string status=2;
   google.protobuf.Timestamp timestamp=3;
-  string temperature=4;
-  string energyConsumption=5;
+  float temperature=4;
+  float energyConsumption=5;
   string payload=6;
 }
 
 message EdgeResponse {
   google.protobuf.Timestamp _receivedTime=1;
+}
+
+message FacilityMessage {
+  float temperature=1;
+  float humidity=2;
+  google.protobuf.Timestamp timestamp_start=3;
+  google.protobuf.Timestamp timestamp_end=4;
 }
