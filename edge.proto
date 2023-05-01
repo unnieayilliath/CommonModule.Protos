@@ -7,23 +7,28 @@ service EdgeGateway {
   rpc SendEquipment (EquipmentMessage) returns (EdgeResponse);
   // Equipment client streaming
   rpc SendEquipmentStream (stream EquipmentMessage) returns (EdgeResponse);
-
+  // Equipment Bi directional streaming
+  rpc SendEquipmentBiDirectionalStream (stream EquipmentMessage) returns (stream EdgeResponse);
   //unary endpoint for facility client
   rpc SendFacility (FacilityMessage) returns (EdgeResponse);
   // Facility client streaming
   rpc SendFacilityStream (stream FacilityMessage) returns (EdgeResponse);
+ 
 }
 message EquipmentMessage {
-  string deviceId=1;
-  string status=2;
-  google.protobuf.Timestamp timestamp=3;
-  float temperature=4;
-  float energyConsumption=5;
-  int32  productionRate=6;
-  string payload=7;
+  string messageId=1;
+  string deviceId=2;
+  string status=3;
+  google.protobuf.Timestamp timestamp=4;
+  float temperature=5;
+  float energyConsumption=6;
+  int32  productionRate=7;
+  string payload=8;
 }
 message EdgeResponse {
-  google.protobuf.Timestamp _receivedTime=1;
+
+  string messageId=1;
+  google.protobuf.Timestamp _receivedTime=2;
 }
 message FacilityMessage {
   float temperature=1;
