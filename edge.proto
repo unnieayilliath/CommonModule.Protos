@@ -2,19 +2,24 @@ syntax = "proto3";
 option csharp_namespace = "CommonModule.Protos";
 import "google/protobuf/timestamp.proto";
 package edge;
-service EdgeGateway {
+service Equipment {
 	//unary endpoint for equipment client
-  rpc SendEquipment (EquipmentMessage) returns (EdgeResponse);
+  rpc Send (EquipmentMessage) returns (EdgeResponse);
   // Equipment client streaming
-  rpc SendEquipmentStream (stream EquipmentMessage) returns (EdgeResponse);
+  rpc SendStream (stream EquipmentMessage) returns (EdgeResponse);
   // Equipment Bi directional streaming
-  rpc SendEquipmentBiDirectionalStream (stream EquipmentMessage) returns (stream EdgeResponse);
-  //unary endpoint for facility client
-  rpc SendFacility (FacilityMessage) returns (EdgeResponse);
-  // Facility client streaming
-  rpc SendFacilityStream (stream FacilityMessage) returns (EdgeResponse);
- 
+  rpc SendBiDirectionalStream (stream EquipmentMessage) returns (stream EdgeResponse);
 }
+
+service Facility {
+	//unary endpoint for equipment client
+  rpc Send (FacilityMessage) returns (EdgeResponse);
+  // Equipment client streaming
+  rpc SendStream (stream FacilityMessage) returns (EdgeResponse);
+  // Equipment Bi directional streaming
+  rpc SendBiDirectionalStream (stream FacilityMessage) returns (stream EdgeResponse);
+}
+
 message EquipmentMessage {
   string messageId=1;
   string deviceId=2;
@@ -26,7 +31,6 @@ message EquipmentMessage {
   string payload=8;
 }
 message EdgeResponse {
-
   string messageId=1;
   google.protobuf.Timestamp _receivedTime=2;
 }
@@ -36,3 +40,4 @@ message FacilityMessage {
   google.protobuf.Timestamp timestamp_start=3;
   google.protobuf.Timestamp timestamp_end=4;
 }
+
