@@ -14,10 +14,7 @@ service Equipment {
 service Facility {
 	//unary endpoint for equipment client
   rpc Send (FacilityMessage) returns (EdgeResponse);
-  // Equipment client streaming
-  rpc SendStream (stream FacilityMessage) returns (EdgeResponse);
-  // Equipment Bi directional streaming
-  rpc SendBiDirectionalStream (stream FacilityMessage) returns (stream EdgeResponse);
+  
 }
 
 message EquipmentMessage {
